@@ -1,0 +1,37 @@
+<div class="uk-container-large uk-padding uk-padding-remove-vertical uk-width">
+  <h2 class="season-name">{{ season?.name }}</h2>
+
+  <div class="uk-section uk-margin-medium-left uk-margin-remove uk-padding-remove">
+    <div *ngFor="let raceWeekend of season?.raceWeekends">
+      <ng-container *ngIf="raceWeekend.sessions.length > 0">
+        <h3>{{ raceWeekend?.name }} ({{ raceWeekend?.startDate | date:'EEEE, dd-MM' }}
+          - {{ raceWeekend?.endDate | date:'EEEE, dd-MM' }})</h3>
+
+        <div class="uk-grid uk-flex uk-flex-row" *ngIf="inDateRange(raceWeekend?.startDate)">
+          <div
+            class="uk-card uk-card-default uk-card-body uk-width-1-1@s uk-width-1-2@m uk-width-2-5@l uk-width-1-5@xl"
+            *ngFor="let session of raceWeekend?.sessions">
+
+            <ng-container *ngIf="session?.status !== 'expired'">
+              <div
+                class="uk-card-media-top video-thumbnail"
+                routerLink="/player"
+                [queryParams]="{uri: session?.contentUri, image: session?.imagePath}"
+                [ngClass]="{'disabled': session?.contentUri === null}">
+                <img
+                  *ngIf="session?.imagePath"
+                  [src]="ASSET_BASE_URL + '/' + session.imagePath"
+                  alt="{{ session?.name }} thumbnail">
+              </div>
+
+              <div class="uk-card-badge uk-label time">{{ session?.startTime | date:'EE HH:mm' }}</div>
+              <h3 class="uk-card-title video-title">{{ session?.name }}</h3>
+              <div class="uk-card-badge uk-label-danger">{{ session?.status }}</div>
+            </ng-container>
+          </div>
+
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

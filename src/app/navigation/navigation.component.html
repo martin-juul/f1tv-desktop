@@ -1,0 +1,9 @@
+<ul class="uk-nav-primary uk-nav-parent-icon uk-margin-large-top">
+  <li class="uk-nav-header nav-heading"><a routerLink="/">Seasons</a></li>
+
+  <ng-container *ngIf="seasons.length > 0">
+    <li *ngFor="let season of seasons">
+      <a routerLink="/" [queryParams]="{season: season}">{{season}}</a>
+    </li>
+  </ng-container>
+</ul>

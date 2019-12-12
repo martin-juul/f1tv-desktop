@@ -1,0 +1,21 @@
+@import "mixins";
+
+$fontPath: "/assets/fonts";
+
+@include font-face(Formula1, "#{$fontPath}/Formula1/Formula1-Regular", normal, normal, woff2);
+@include font-face(Formula1, "#{$fontPath}/Formula1/Formula1-Italic", normal, italic, woff2);
+@include font-face(Formula1-Bold, "#{$fontPath}/Formula1/Formula1-Bold", normal, normal, woff2);
+@include font-face(Formula1-Black, "#{$fontPath}/Formula1/Formula1-Black", normal, normal, woff2);
+@include font-face(Formula1-Wide, "#{$fontPath}/Formula1/Formula1-Wide", normal, normal, woff2);
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+
+@media (min-width: 768px) {
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 30px;
+  }
+}

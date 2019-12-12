@@ -1,0 +1,127 @@
+<div class="player-container" #container
+     (mouseover)="onMouseOver()"
+     (mouseenter)="onMouseEnter()"
+     (mousemove)="onMouseMove()"
+     (mouseout)="onMouseOut()">
+  <!--<div class="overlay p-3" #overlay>
+
+    <div class="container-fluid">
+      <div class="info-box">
+        <div class="row">
+
+          <div class="ml-auto back-button" (click)="goBack()">
+            <svg class="back" version="1.1" id="Back" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 x="0px" y="0px"
+                 viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+            <path d="M19,7v6c0,1.103-0.896,2-2,2H3v-3h13V8H5v2L1,6.5L5,3v2h12C18.104,5,19,5.896,19,7z"></path>
+          </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>-->
+
+  <div class="spinner" *ngIf="loading"></div>
+
+  <video #video
+         preload="metadata"
+         controls="controls"
+         [poster]="poster"
+         (keyup)="keyUpHandler($event)"
+         (loadedmetadata)="videoOnLoadedMetadata()"
+         (timeupdate)="timeUpdateHandler()"
+         (loadstart)="onLoadStart()"
+         (canplay)="onCanPlay()">
+  </video>
+
+  <div
+    id="video-controls"
+    class="controls"
+    tabindex="0"
+    (keyup)="keyUpHandler($event)"
+    #controls
+  >
+    <button type="button" class="dropbtn btn-exit" (click)="goBack()"></button>
+
+    <button
+      id="playpause"
+      type="button"
+      [attr.data-state]="playPauseState"
+      (click)="togglePlayPause()">Play/Pause
+    </button>
+
+    <div class="progress">
+      <progress
+        id="progress"
+        value="{{currentTime}}"
+        min="0" max="{{duration}}"
+        (click)="scrubProgress($event)"
+        #progress>
+      </progress>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="left">
+
+        <div class="uk-flex uk-flex-row uk-flex-between m-auto uk-height-1-1">
+          <div class="time uk-margin-medium-right uk-padding-small">
+            <p class="time"
+               *ngIf="currentTime && duration"><span class="currentTime">{{getHumanTime(currentTime)}}</span>
+              / {{getHumanTime(duration)}}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="spacer"></div>
+
+        <div class="uk-flex uk-flex-between m-auto">
+
+          <div class="dropdown uk-margin-medium-right">
+            <button
+              id="audio-btn"
+              class="dropbtn btn-audio-tracks"
+              (click)="toggleAudioOptions()"
+            ></button>
+
+            <div
+              id="audio"
+              class="dropdown-content show"
+              *ngIf="displayAudioOptions"
+            >
+              <ng-container *ngFor="let track of audioTracks">
+                <a [ngClass]="{'dropdown-item-active': track === currentTrack}"
+                   (click)="setAudioTrack(track)"
+                >{{ track['name'] }}</a>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <button id="quality-btn"
+                    class="dropbtn btn-video-quality"
+                    (click)="toggleQualityOptions()"
+            ></button>
+
+            <div
+              id="quality"
+              class="dropdown-content show"
+              *ngIf="displayQualityOptions"
+            >
+              <ng-container *ngFor="let quality of getQualityLevels()">
+                <a [ngClass]="{'dropdown-item-active': quality === currentQuality}"
+                   (click)="setVideoQuality(quality)"
+                >{{ quality.height }}p</a>
+              </ng-container>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

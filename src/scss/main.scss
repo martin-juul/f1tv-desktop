@@ -1,0 +1,36 @@
+@import "variables";
+@import "base";
+@import "~uikit/src/scss/variables-theme";
+@import "~uikit/src/scss/mixins-theme";
+// Custom theming
+@import "~uikit/src/scss/uikit-theme";
+
+@mixin hook-card() {
+}
+
+@import "mixins";
+@import "typography";
+@import "drag";
+
+.video-title {
+  font-size: 15px;
+}
+
+.video-thumbnail {
+  margin-bottom: 8px;
+  height: 216px;
+  width: 380px;
+
+  img {
+    border-radius: 8px;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 150ms ease-in-out;
+  }
+
+  img:hover {
+    opacity: 1;
+  }
+}

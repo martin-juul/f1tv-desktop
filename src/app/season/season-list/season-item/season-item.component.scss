@@ -1,0 +1,15 @@
+.season-name {
+  font-family: Formula1-Bold, sans-serif;
+  color: #e10600 !important;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.time {
+  right: unset;
+  left: 25px;
+  background-color: #212121;
+}
